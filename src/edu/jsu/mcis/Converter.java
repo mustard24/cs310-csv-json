@@ -3,8 +3,12 @@ package edu.jsu.mcis;
 import java.io.*;
 import java.util.*;
 import com.opencsv.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import org.json.simple.*;
 import org.json.simple.parser.*;
+
+import java.sql.*;
 
 public class Converter {
     
@@ -143,6 +147,61 @@ public class Converter {
         catch(Exception e) { return e.toString(); }
         return results.trim();
         
+    }
+    public static JSONArray getJSONData(){
+        Connection conn = null;
+        JSONArray full = new JSONArray();
+    try{
+            String server = ("jdbc:mysql://localhost/p2_test");
+            String username = "root";
+            String password = "CS310";
+            System.out.println("Connecting to " + server + "...");
+            ResultSet resultSet;
+            
+            
+            
+            /* Load the MySQL JDBC Driver */
+            
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            
+            /* Open Connection */
+
+            conn = DriverManager.getConnection(server, username, password);
+
+            /* Test Connection */
+            
+            if (conn.isValid(0)) {
+                
+                /* Connection Open! */
+                
+                System.out.println("Connected Successfully!");
+                String query = "SELECT * FROM people";
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                boolean hasresults = pstmt.execute();
+                String[] colHeader = {"first","middleinitial","lastname", "address","city","state","zip"};
+                resultSet = pstmt.getResultSet();
+                
+                while(resultSet.next()){
+                    JSONObject jsonObj = new JSONObject();// This may need to be outside the while loop
+                    String[] strArray = new String[7];
+                    for(int i = 1; i < 8; i++ ){
+                        jsonObj.put(colHeader[i-1], resultSet.getString(i+1));
+                        //strArray[i-1] = resultSet.getString(i+1);
+                    }
+                    //jsonObj.put("people", strArray);
+                    
+                    full.add(jsonObj); // outside while loop?
+                }
+                
+                System.out.println(full.toString());
+            }
+            
+    }
+    catch(Exception e){
+        System.err.println(e.toString());
+    }
+    return full;
+    
     }
 
 }
