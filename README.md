@@ -4,13 +4,13 @@ CSV - JSON is designed to swap the formatting of CSV to JSON and vice versa.
 It also holds a method that is designed to pull from an SQL database and be put in a JSON class.
 # Installation
 
+# Usage
 This project was built in the Netbeans IDE and contains Netbeans metadata.
 That means it will work best within the Netbeans IDE.
 Make sure to have the JSON-Simple, JUnit4.12, OpenCSV, and Hamcrest 1.3 installed inside your Netbeans IDE.
 
-# Usage
 
-csvtoJson takes in a comma seperated value string and returns a string that is formatted in JSON.
+csvToJson takes in a comma seperated value string and returns a string that is formatted in JSON.
 It does this by taking a special CSVReader object and creating an instance of it with a CSV.
 It attaches an iterator to a list of all the CSVReader parts.
 Those parts are each line. When the iterator cycles through, it goes to a new line.
@@ -48,5 +48,24 @@ After:
             ]
 ```
 
-jsonToCSV is a bit simpler. The JSON data
+jsonToCSV is a bit simpler. It takes in a string formatted in the JSON format and the method reads it. We use the JSONParser to turn the string into a JSONObject. With the new JSONObject we make a JSONArray with the column headers, row headers, and the body of the file.
+We then use the csvWriter class to write the column headers in to a new string. We then follow up by iterating through the row headers and the body of the data to get a final product like the before above for the CSV.
+
+getJSONData makes a connection to an SQL database to pull different information, in this case a mailing address list. We take the various fields such as the address or zip code and put it in a JSONArray for the specific spot. Once we go through the full mailing list we send the JSONArray away.
+
+The main class just activates these various methods by setting up a buffered reader and csv files to be opened. It then takes the prior classes of jsonToCSV and csvToJson and prints them as results as the end.
+
+# Support 
+
+You can email me at dmoody3@stu.jsu.edu for questions.
+
+# Roadmap
+
+While this is considered finished I may finish up the getJSONData class at a later date.
+
+# Authors and Acknowledgement
+
+This class was started off by Jay Snellen at JSU. I finished up the classes as part of an assignment for Software Engineering I.
+
+
 
