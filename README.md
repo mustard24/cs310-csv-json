@@ -4,11 +4,11 @@ CSV - JSON is designed to swap the formatting of CSV to JSON and vice versa.
 It also holds a method that is designed to pull from an SQL database and be put in a JSON class.
 # Installation
 
-# Usage
 This project was built in the Netbeans IDE and contains Netbeans metadata.
 That means it will work best within the Netbeans IDE.
 Make sure to have the JSON-Simple, JUnit4.12, OpenCSV, and Hamcrest 1.3 installed inside your Netbeans IDE.
 
+# Usage
 
 csvToJson takes in a comma seperated value string and returns a string that is formatted in JSON.
 It does this by taking a special CSVReader object and creating an instance of it with a CSV.
@@ -66,6 +66,10 @@ While this is considered finished I may finish up the getJSONData class at a lat
 # Authors and Acknowledgement
 
 This class was started off by Jay Snellen at JSU. I finished up the classes as part of an assignment for Software Engineering I.
+
+# Project Status 
+
+While getJSONData almost makes a fully formatted string for a JSONArray, it fails the tests that are given. Development on this particular project has stopped for now. 
 
 
 
